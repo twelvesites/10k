@@ -1,20 +1,28 @@
 const correctPassword = "10k2022@sis"; // Replace with your actual password
 
-// Function to check the password and display content
 function checkPasswordAndDisplayContent() {
-    // Prompt the user for a password
+    // Check if the password was already entered before
+    if (localStorage.getItem("passwordEntered") === "true") {
+        showContent();
+        return;
+    }
+
+    // Prompt for password
     const enteredPassword = prompt("Enter password:");
 
     if (enteredPassword === correctPassword) {
-        // Display the content since the password is correct
-        const contentDiv = document.getElementById("content");
-        contentDiv.classList.remove("hidden");
+        localStorage.setItem("passwordEntered", "true");
+        showContent();
     } else {
-        // If the password is incorrect, redirect back to the previous page
         alert("Wrong password. Redirecting back to the previous page.");
         window.history.back();
     }
 }
 
-// Attach the checkPasswordAndDisplayContent function to the window.onload event
+function showContent() {
+    const contentDiv = document.getElementById("content");
+    contentDiv.classList.remove("hidden");
+}
+
+// Run the check on page load
 window.onload = checkPasswordAndDisplayContent;
